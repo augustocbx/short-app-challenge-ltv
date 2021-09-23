@@ -2,6 +2,8 @@ class ShortUrl < ApplicationRecord
 
   CHARACTERS = [*'0'..'9', *'a'..'z', *'A'..'Z'].freeze
 
+  scope :top_100, -> { order(click_count: :desc).limit(100) }
+
   validates :full_url, presence: true
   validate :validate_full_url
 
@@ -10,6 +12,10 @@ class ShortUrl < ApplicationRecord
   end
 
   def update_title!
+  end
+
+  def public_attributes
+    self.slice('short_code', 'full_url', 'title', 'click_count')
   end
 
   private
