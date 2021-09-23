@@ -14,6 +14,7 @@ class ShortUrlsController < ApplicationApiController
 
   def show
     @url = ShortUrl.find_by_short_code(params[:id])
+    @url.increment_click_count!
     redirect_to @url.full_url and return
   end
 

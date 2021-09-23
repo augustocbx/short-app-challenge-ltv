@@ -19,6 +19,10 @@ class ShortUrl < ApplicationRecord
   def update_title!
   end
 
+  def increment_click_count!
+    self.update(click_count: self.click_count + 1)
+  end
+
   def public_attributes
     self.slice('short_code', 'full_url', 'title', 'click_count')
   end
