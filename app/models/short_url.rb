@@ -1,7 +1,8 @@
 class ShortUrl < ApplicationRecord
   class << self
     def find_by_short_code(short_code)
-      self.find(short_code)
+      self.find(decode(short_code))
+    end
 
     def encode(int)
       return if int.blank?
