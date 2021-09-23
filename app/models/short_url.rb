@@ -1,4 +1,9 @@
 class ShortUrl < ApplicationRecord
+  class << self
+    def find_by_short_code(short_code)
+      self.find(short_code)
+    end
+  end
 
   CHARACTERS = [*'0'..'9', *'a'..'z', *'A'..'Z'].freeze
 
@@ -12,6 +17,10 @@ class ShortUrl < ApplicationRecord
   end
 
   def update_title!
+  end
+
+  def increment_click_count!
+    self.update(click_count: self.click_count + 1)
   end
 
   def public_attributes
