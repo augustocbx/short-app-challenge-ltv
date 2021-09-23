@@ -5,6 +5,7 @@ RSpec.describe ShortUrlsController, type: :controller do
   let(:parsed_response) { JSON.parse(response.body) }
 
   describe "index" do
+    render_views
 
     let!(:short_url) { ShortUrl.create(full_url: "https://www.test.rspec") }
 
