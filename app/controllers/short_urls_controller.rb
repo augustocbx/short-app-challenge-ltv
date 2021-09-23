@@ -4,6 +4,7 @@ class ShortUrlsController < ApplicationApiController
   # skip_before_action :verify_authenticity_token
 
   def index
+    @urls = ShortUrl.top_100
   end
 
   def create
