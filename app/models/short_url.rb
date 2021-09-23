@@ -53,6 +53,14 @@ class ShortUrl < ApplicationRecord
   private
 
   def validate_full_url
+    uri = URI.parse(self.full_url.to_s)
+    if uri.blank? || uri.scheme != 'https' && uri.scheme != 'http'
+      raise URI::InvalidURIError
+    end
+    return true
+  rescue URI::InvalidURIError => e
+    self.errors.add(:full_url, 'is not a valid url')
+    return false
   end
 
 end
