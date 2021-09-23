@@ -2,6 +2,28 @@ class ShortUrl < ApplicationRecord
   class << self
     def find_by_short_code(short_code)
       self.find(short_code)
+
+    def encode(int)
+      return if int.blank?
+      return if !int.is_a? Numeric
+      charecters_size = CHARACTERS.size
+      s = ''
+      while int > 0
+        int, modulus = int.divmod(charecters_size)
+        s = CHARACTERS[modulus] + s
+      end
+      s
+    end
+
+    def decode(str)
+      return if str.blank?
+      integer = 1
+      answer = 0
+      while character = str.slice!(-1)
+        answer += CHARACTERS.index(character) * integer
+        integer *= 62
+      end
+      return answer
     end
   end
 
