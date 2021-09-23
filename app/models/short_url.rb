@@ -1,4 +1,9 @@
 class ShortUrl < ApplicationRecord
+  class << self
+    def find_by_short_code(short_code)
+      self.find(short_code)
+    end
+  end
 
   CHARACTERS = [*'0'..'9', *'a'..'z', *'A'..'Z'].freeze
 
