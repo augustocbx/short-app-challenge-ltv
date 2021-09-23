@@ -6,7 +6,8 @@ class ShortUrl < ApplicationRecord
 
     def encode(int)
       return if int.blank?
-      return if !int.is_a? Numeric
+      return unless int.is_a? Numeric
+
       charecters_size = CHARACTERS.size
       s = ''
       while int > 0
@@ -18,6 +19,7 @@ class ShortUrl < ApplicationRecord
 
     def decode(str)
       return if str.blank?
+
       integer = 1
       answer = 0
       while character = str.slice!(-1)
@@ -54,11 +56,10 @@ class ShortUrl < ApplicationRecord
 
   def validate_full_url
     uri = URI.parse(self.full_url.to_s)
-    if uri.blank? || uri.scheme != 'https' && uri.scheme != 'http'
-      raise URI::InvalidURIError
-    end
+    raise URI::InvalidURIError unless (uri.kind_of?(URI::HTTP) || uri.kind_of?(URI::HTTPS))
+
     return true
-  rescue URI::InvalidURIError => e
+  rescue URI::InvalidURIError
     self.errors.add(:full_url, 'is not a valid url')
     return false
   end

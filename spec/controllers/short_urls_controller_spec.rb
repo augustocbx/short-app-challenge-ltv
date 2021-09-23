@@ -38,6 +38,7 @@ RSpec.describe ShortUrlsController, type: :controller do
   end
 
   describe "show" do
+    render_views
 
     let!(:short_url) { ShortUrl.create(full_url: "https://www.test.rspec") }
 

@@ -1,4 +1,6 @@
 class ShortUrlsController < ApplicationApiController
+  rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   # Since we're working on an API, we don't have authenticity tokens
   # skip_before_action :verify_authenticity_token
@@ -8,7 +10,7 @@ class ShortUrlsController < ApplicationApiController
   end
 
   def create
-    @url = ShortUrl.create(short_url_params)
+    @url = ShortUrl.create!(short_url_params)
     render :show
   end
 
@@ -20,6 +22,18 @@ class ShortUrlsController < ApplicationApiController
 
   def short_url_params
     params.permit(:full_url)
+  end
+
+  def record_invalid(error)
+    @error = error
+
+    render '/record_invalid'
+  end
+
+  def record_not_found(error)
+    @error = error
+
+    render '/record_not_found', status: :not_found
   end
 
 end
