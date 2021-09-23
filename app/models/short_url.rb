@@ -6,7 +6,8 @@ class ShortUrl < ApplicationRecord
 
     def encode(int)
       return if int.blank?
-      return if !int.is_a? Numeric
+      return unless int.is_a? Numeric
+
       charecters_size = CHARACTERS.size
       s = ''
       while int > 0
@@ -18,6 +19,7 @@ class ShortUrl < ApplicationRecord
 
     def decode(str)
       return if str.blank?
+
       integer = 1
       answer = 0
       while character = str.slice!(-1)
