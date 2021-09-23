@@ -13,6 +13,7 @@ class ShortUrlsController < ApplicationApiController
   end
 
   def show
+    @url = ShortUrl.find_by_short_code(params[:id])
   end
 
   def short_url_params
