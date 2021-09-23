@@ -22,6 +22,7 @@ RSpec.describe ShortUrlsController, type: :controller do
   end
 
   describe "create" do
+    render_views
 
     it "creates a short_url" do
       post :create, params: { full_url: "https://www.test.rspec" }, format: :json
