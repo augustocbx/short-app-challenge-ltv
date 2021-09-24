@@ -43,6 +43,10 @@ class ShortUrl < ApplicationRecord
     self.class.encode(self.id)
   end
 
+  def short_url
+    Rails.application.routes.url_helpers.shortened_url(self.short_code)
+  end
+
   def update_title!
     uri = self.full_url
     i = 3
@@ -75,6 +79,10 @@ class ShortUrl < ApplicationRecord
   rescue URI::InvalidURIError
     self.errors.add(:full_url, 'is not a valid url')
     return false
+  end
+
+  def enqueue_update_title
+    UpdateTitleJob.perform_later(self.id)
   end
 
 end
