@@ -6,5 +6,5 @@ Rails.application.routes.draw do
 
   resources :short_urls, only: [:index, :create, :show], :defaults => { :format => :json }
   get "/" => "short_urls#index"
-  get '*id' => 'short_urls#show'
+  get '*id' => 'short_urls#show', as: :shortened
 end
