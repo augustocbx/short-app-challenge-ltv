@@ -37,11 +37,24 @@ class ShortUrl < ApplicationRecord
   validates :full_url, presence: true
   validate :validate_full_url
 
+  after_create :enqueue_update_title
+
   def short_code
     self.class.encode(self.id)
   end
 
   def update_title!
+    uri = self.full_url
+    i = 3
+    begin
+      i -= 1
+      response = Net::HTTP.get_response(URI.parse(uri))
+      uri = response['location']
+    end while !i.zero? && response.is_a?(Net::HTTPRedirection)
+    title = Nokogiri.HTML(response.body).at_css('title').text
+    if title
+      self.update(title: title)
+    end
   end
 
   def increment_click_count!
