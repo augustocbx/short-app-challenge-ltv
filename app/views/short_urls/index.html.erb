@@ -33,10 +33,10 @@
     </thead>
     <tbody>
     <tr v-for="(short_url, index) in urls">
-      <th scope="row">1</th>
-      <td>0</td>
-      <td><a href="#" target="_blank">http://localhost</a></td>
-      <td>https://google.com</td>
+      <th scope="row">{{ index+1 }}</th>
+      <td>{{ short_url.click_count }}</td>
+      <td><a :href="short_url.short_url" target="_blank">{{ short_url.short_url }}</a></td>
+      <td>{{ short_url.full_url }}</td>
     </tr>
     </tbody>
   </table>
