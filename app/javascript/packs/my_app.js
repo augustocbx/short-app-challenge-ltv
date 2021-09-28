@@ -21,6 +21,16 @@ document.addEventListener('turbolinks:load', () => {
                 urls: [],
                 showDismissibleAlert: false,
                 errorMsg: ''
+            },
+            mounted: function (){
+                this.getTopURLs();
+            },
+            methods: {
+                getTopURLs: function (){
+                    axios.get('http://localhost:3000/short_urls.json').then((data) => {
+                        this.urls = data.data.urls;
+                    });
+                }
             }
         })
     }
