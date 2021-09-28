@@ -26,6 +26,20 @@ document.addEventListener('turbolinks:load', () => {
                 this.getTopURLs();
             },
             methods: {
+                createShortUrl: function(){
+                    axios.post('/short_urls.json', {full_url: this.url}).then((data) => {
+                        this.url = '';
+                        if (data.data.errors != null){
+                            this.showDismissibleAlert = true;
+                            this.errorMsg = data.data.errors.join(', ');
+                        } else {
+                            this.getTopURLs();
+                            this.showDismissibleAlert = false;
+                            this.errorMsg = '';
+                        }
+                    });
+
+                },
                 getTopURLs: function (){
                     axios.get('http://localhost:3000/short_urls.json').then((data) => {
                         this.urls = data.data.urls;
