@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>URL shortener (LTV test)</title>
+
+  <%= javascript_pack_tag 'application' %>
+  <%= javascript_pack_tag 'my_app' %>
+</head>
+
+<link
+  type="text/css"
+  rel="stylesheet"
+  href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"
+  />
+<link
+  type="text/css"
+  rel="stylesheet"
+  href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"
+  />
+
+<body>
+
+<div id="app">
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Rank</th>
+      <th scope="col">Clicks</th>
+      <th scope="col">Short URL</th>
+      <th scope="col">Full URL</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr v-for="(short_url, index) in urls">
+      <th scope="row">1</th>
+      <td>0</td>
+      <td><a href="#" target="_blank">http://localhost</a></td>
+      <td>https://google.com</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
+
+
+
