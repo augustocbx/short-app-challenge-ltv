@@ -17,10 +17,27 @@
   rel="stylesheet"
   href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"
   />
+<%= stylesheet_link_tag "application" %>
 
 <body>
 
 <div id="app">
+  <b-alert v-model="showDismissibleAlert" variant="danger" dismissible>
+    {{ errorMsg }}
+  </b-alert>
+  <b-container>
+    <b-jumbotron header="URL shortener" lead="LTV test">
+    </b-jumbotron>
+
+    <b-form-group
+      horizontal
+      :label-cols="4"
+      label="Enter a full URL"
+    >
+      <b-form-input v-model.trim="url" @keyup.enter.native="createShortUrl()"></b-form-input>
+      <button v-on:click="createShortUrl()" class="btn btn-dark">Create Short URL</button>
+    </b-form-group>
+  </b-container>
 
   <table class="table">
     <thead>
