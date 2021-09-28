@@ -66,7 +66,7 @@ class ShortUrl < ApplicationRecord
   end
 
   def public_attributes
-    self.slice('short_code', 'full_url', 'title', 'click_count')
+    self.slice('short_code', 'full_url', 'title', 'click_count', 'short_url')
   end
 
   private
