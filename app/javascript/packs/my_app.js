@@ -2,6 +2,7 @@ import Vue from 'vue/dist/vue.esm'
 import TurbolinksAdapter from 'vue-turbolinks'
 import VueResource from 'vue-resource'
 import BootstrapVue from 'bootstrap-vue'
+import axios from 'axios'
 
 Vue.use(VueResource)
 Vue.use(TurbolinksAdapter)
@@ -26,7 +27,7 @@ document.addEventListener('turbolinks:load', () => {
             },
             methods: {
                 createShortUrl: function(){
-                    axios.post('http://localhost:3000/short_urls.json', {full_url: this.url}).then((data) => {
+                    axios.post('/short_urls.json', {full_url: this.url}).then((data) => {
                         this.url = '';
                         if (data.data.errors != null){
                             this.showDismissibleAlert = true;
